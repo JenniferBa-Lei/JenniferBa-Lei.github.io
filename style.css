@@ -64,6 +64,28 @@ h3 { font-size: 1.15rem; }
   margin-bottom: 3.5rem;
 }
 
+.subsection-title {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 4rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+.subsection-title::before,
+.subsection-title::after {
+  content: '';
+  display: inline-block;
+  width: 2.5rem;
+  height: 1px;
+  background: var(--border);
+  vertical-align: middle;
+  margin: 0 0.75rem;
+}
+
 /* ─── BUTTONS ──────────────────────────────────────────────────────────── */
 .btn {
   display: inline-flex;
