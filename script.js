@@ -49,7 +49,7 @@ sections.forEach(s => sectionObserver.observe(s));
 // ─── CONTACT FORM ─────────────────────────────────────────────────────────
 const form = document.getElementById('contact-form');
 
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const btn = form.querySelector('button[type="submit"]');
@@ -58,16 +58,29 @@ form.addEventListener('submit', (e) => {
   btn.textContent = 'Sending…';
   btn.disabled = true;
 
-  // Simulate send (replace with real form handler / Formspree / EmailJS)
-  setTimeout(() => {
-    btn.textContent = 'Message Sent!';
-    btn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
-    form.reset();
+  try {
+    const res = await fetch('https://formspree.io/f/xlgakryj', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(form),
+    });
 
-    setTimeout(() => {
-      btn.textContent = original;
-      btn.style.background = '';
-      btn.disabled = false;
-    }, 3000);
-  }, 1000);
+    if (res.ok) {
+      btn.textContent = 'Message Sent!';
+      btn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
+      form.reset();
+    } else {
+      btn.textContent = 'Failed — try emailing directly';
+      btn.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+    }
+  } catch {
+    btn.textContent = 'Failed — try emailing directly';
+    btn.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+  }
+
+  setTimeout(() => {
+    btn.textContent = original;
+    btn.style.background = '';
+    btn.disabled = false;
+  }, 3000);
 });
