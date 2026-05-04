@@ -1,3 +1,7 @@
+// ─── SCROLL TO TOP ON LOAD / REFRESH ────────────────────────────────────────
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
 // ─── NAVBAR: scroll effect + mobile toggle ─────────────────────────────────
 const navbar = document.getElementById('navbar');
 const navToggle = document.querySelector('.nav-toggle');
